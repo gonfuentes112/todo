@@ -4,7 +4,15 @@ class Project {
     constructor(name, nextTodoId = 0, todosList=[]){
         let nextTodoId = nextTodoId;
         this.name = name;
-        this.todosList = todosList;
+
+        if (todosList) {
+            todosList.forEach((todo) => {
+                this.addExistingTodo(todo);
+            })
+        } else {
+            this.todosList = todosList;
+        }
+        
     }
 
     addNewTodo(title, description, dueDate, priority, done){
@@ -37,3 +45,5 @@ class Project {
         }
     }
 }
+
+export {Project};
