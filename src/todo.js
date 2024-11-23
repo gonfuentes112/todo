@@ -1,10 +1,10 @@
 class Todo {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, done) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-
+        this.done = done;
         }
 
         get title(){
@@ -23,6 +23,10 @@ class Todo {
             return this._priority;
         }
 
+        get done() {
+            return this._done;
+        }
+
         set title(newTitle){
             this._title = newTitle;
         }
@@ -34,6 +38,10 @@ class Todo {
         }
         set priority(newPriority){
             this._priority = newPriority;
+        }
+
+        set done(newDone) {
+            this._done = newDone;
         }
 }
 
