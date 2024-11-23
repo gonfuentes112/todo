@@ -24,6 +24,7 @@ class Project {
     addExistingTodo(todo){
         const newTodo = new Todo(todo.id, todo.title, todo.description, todo.dueDate, tood.priority, todo.done);
         this.todosList.push(newTodo);
+        nextTodoId = todo.id + 1;
     }
 
     getTodoObject(targetId){
