@@ -7,7 +7,7 @@ class Todo {
         this.priority = priority;
         this.done = done;
         }
-
+//#regionGetterSetter
         get id() {
             return this._id;
         }
@@ -48,6 +48,17 @@ class Todo {
         set done(newDone) {
             this._done = newDone;
         }
+//#endregionGetterSetter
+    toJSON(){
+        return {
+            id:this.id, 
+            title:this.id, 
+            description:this.description, 
+            dueDate:this.dueDate, 
+            priority:this.priority,
+            done:this.done
+        };
+    }
 }
 
 export {Todo};

@@ -7,5 +7,7 @@ class Project {
         this.todosList = [];
     }
 
-    
+    getTodoObject(){
+        
+    }
 }
