@@ -14,10 +14,13 @@ class Project {
     }
 
     addExistingTodo(todo){
-        this.todosList.push(todo);
+        const newTodo = new Todo(todo.id, todo.title, todo.description, todo.dueDate, tood.priority, todo.done);
+        this.todosList.push(newTodo);
     }
 
     getTodoObject(targetId){
         return this.todosList.find((todo) => todo && todo.id === targetId); 
     }
+
+
 }
