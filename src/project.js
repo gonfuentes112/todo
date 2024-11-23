@@ -27,8 +27,13 @@ class Project {
         if (targetIndex !== -1) {
             this.todosList[targetIndex] = null;
         }
-
     }
 
-
+    toJSON() {
+        return {
+            name: this.name,
+            nextTodoId: this.nextTodoId,
+            todosList: this.todosList.map((todo) => {todo.toJSON();})
+        }
+    }
 }
