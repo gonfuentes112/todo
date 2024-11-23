@@ -22,5 +22,13 @@ class Project {
         return this.todosList.find((todo) => todo && todo.id === targetId); 
     }
 
+    deleteTodo(targetId){
+        const targetIndex = this.todosList.findIndex((todo) => todo && todo.id === targetId);
+        if (targetIndex !== -1) {
+            this.todosList[targetIndex] = null;
+        }
+
+    }
+
 
 }
