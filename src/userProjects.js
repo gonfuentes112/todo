@@ -3,6 +3,7 @@ import { Project } from "./project";
 
 function userProjects() {
     const projects =  [];
+    let todoId = 0;
 
     //#regionProjects
     function addProject(projectName) {
@@ -44,7 +45,9 @@ function userProjects() {
 
     //#regionTodos
     function createTodo(title, description, dueDate, priority, done){
-        return Todo(title, description, dueDate, priority, done);
+        const newTodo =  Todo(todoId, title, description, dueDate, priority, done);
+        todoId++;
+        return newTodo;
     }
     
     function addTodoToProject(projectName, todo) {
@@ -54,6 +57,10 @@ function userProjects() {
         }
         target.todoList.push(todo);
         return true;
+    }
+
+    function getTodoById(id) {
+        
     }
     //#endregionTodos
 
