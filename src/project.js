@@ -1,5 +1,11 @@
-function Project(name) {
-    return {name, todoList: []};
-}
+import { Todo } from "./todo";
 
-export {Project};
+class Project {
+    constructor(name){
+        let nextTodoId = 0;
+        this.name = name;
+        this.todosList = [];
+    }
+
+    
+}
