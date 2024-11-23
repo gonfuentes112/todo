@@ -7,10 +7,14 @@ class Project {
         this.todosList = todosList;
     }
 
-    AddNewTodo(title, description, dueDate, priority, done){
+    addNewTodo(title, description, dueDate, priority, done){
         const newTodo = new Todo(nextTodoId, title, description, dueDate, priority, done)
         nextTodoId++;
         this.todosList.push(newTodo);
+    }
+
+    addExistingTodo(todo){
+        this.todosList.push(todo);
     }
 
     getTodoObject(targetId){
