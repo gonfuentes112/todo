@@ -13,7 +13,7 @@ class Project {
         this.todosList.push(newTodo);
     }
 
-    getTodoObject(){
-
+    getTodoObject(targetId){
+        return this.todosList.find((todo) => todo && todo.id === targetId); 
     }
 }
