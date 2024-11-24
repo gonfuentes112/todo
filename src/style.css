@@ -106,3 +106,33 @@ body {
     display: grid;
     grid-template-rows: 2fr 9fr;
 }
+
+#current-project {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    align-items: center;
+}
+
+.project-name {
+    font-size: 7rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.current-project-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+}
+
+.edit-project-button,
+.delete-project-button {
+    background-color: black;
+    border: 1px solid darkviolet;
+    border-radius: 50%;
+    color: darkviolet;
+    font-size: 2rem;
+    cursor: pointer;
+    height: 7.5rem;
+    width: 7.5rem;
+}

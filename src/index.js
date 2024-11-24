@@ -39,10 +39,13 @@ function controller(){
         const editProjectButton = document.createElement('button');
         editProjectButton.innerText = 'Rename';
         editProjectButton.dataset.id = projectId;
+        editProjectButton.classList.add('edit-project-button')
         const deleteProjectButton = document.createElement('button');
         deleteProjectButton.innerText = 'Delete';
         deleteProjectButton.dataset.id = projectId;
+        deleteProjectButton.classList.add('delete-project-button')
         const currentProjectButtons = document.createElement('div');
+        currentProjectButtons.classList.add('current-project-buttons')
         currentProjectButtons.appendChild(editProjectButton);
         currentProjectButtons.appendChild(deleteProjectButton);
         currentProject.appendChild(projectName);
