@@ -3,7 +3,7 @@ import { Todo } from "./todo";
 class Project {
     constructor(id, name, nextTodoId = 0, todosList=[]){
         this.id = id;
-        let nextTodoId = nextTodoId;
+        this.nextTodoId = nextTodoId;
         this.name = name;
 
         if (todosList) {
@@ -43,7 +43,7 @@ class Project {
     addExistingTodo(todo){
         const newTodo = new Todo(todo.id, todo.title, todo.description, todo.dueDate, tood.priority, todo.done);
         this.todosList.push(newTodo);
-        nextTodoId = todo.id + 1;
+        this.nextTodoId = todo.id + 1;
     }
 
     getTodoObject(targetId){

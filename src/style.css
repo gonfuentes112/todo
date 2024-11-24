@@ -1,10 +1,11 @@
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    min-height: 100vh;
+    height: 100vh;
     background-color: black;
     display: grid;
     grid-template-columns: 1fr 6fr;
@@ -13,20 +14,34 @@ body {
 
 #sidebar {
     display: grid;
-    grid-template-rows: 1fr 7fr 1fr;
+    grid-template-rows: 1fr 10fr 1fr;
     gap: 1rem;
     justify-items: center;
+    height: 100vh;
 }
 
 #sidebar h1 {
     color: darkviolet;
     margin-top: 0.2rem;
+    font-size: 2rem;
 }
 
 #project-container {
-    background-color: #333;
+    background-color: black;
+    border-radius: 0.5rem;
+    box-shadow: inset 0px 0px 1px darkviolet;
     width: 100%;
     overflow: auto;
+    scrollbar-color: darkviolet black;
+}
+
+.project-card {
+    border-radius: 0.5rem;
+    box-shadow: inset 0px 0px 1px darkviolet;
+    color: darkviolet;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
 }
 
 #new-project-button {
@@ -39,4 +54,5 @@ body {
     width: 4rem;
     height: 4rem;
     justify-self: center;
+    cursor: pointer;
 }
