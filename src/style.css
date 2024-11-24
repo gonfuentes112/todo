@@ -63,7 +63,7 @@ body {
     cursor: pointer;
 }
 
-#new-project-dialog {
+dialog {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -72,30 +72,34 @@ body {
     border-radius: 0.5rem;
 }
 
-.new-project-items {
+.new-project-items,
+.rename-project-items,
+.delete-project-items {
     color: darkviolet;
     display: grid;
     align-items: center;
     gap: 0.5rem;
 }
 
-#new-project-dialog input {
+dialog input {
     background-color: #222;
     color: darkviolet;
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
 }
 
-#new-project-dialog label{
+dialog label{
     text-align: center;
 }
 
-.new-project-buttons{
+.new-project-buttons,
+.rename-project-buttons,
+.delete-project-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-#new-project-dialog button {
+dialog button {
     background-color: black;
     border: 1px solid darkviolet;
     border-radius: 0.5rem;

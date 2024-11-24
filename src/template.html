@@ -23,6 +23,26 @@
           </dialog>
     </nav>
     <main id="project-main">
+        <dialog id="rename-project-dialog">
+            <form class="rename-project-items">
+                <label for="rename-project-name-field">New Project Name:</label>
+                <input type="text" required id="rename-project-name-field">
+                <div class="rename-project-buttons">
+                    <button type="submit" id="submit-rename-project">Submit</button>
+                    <button autofocus id="close-rename-project-dialog">Cancel</button>
+                </div>
+            </form>
+          </dialog>
+          <dialog id="delete-project-dialog">
+            <form class="delete-project-items">
+                <label for="delete-project-name-field">New Project Name:</label>
+                <input type="text" required id="delete-project-name-field">
+                <div class="delete-project-buttons">
+                    <button type="submit" id="submit-delete-project">Submit</button>
+                    <button autofocus id="close-delete-project-dialog">Cancel</button>
+                </div>
+            </form>
+          </dialog>
         <div id="current-project">
 
         </div>

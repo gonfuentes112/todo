@@ -10,6 +10,8 @@ function controller(){
     const newProjectInput = document.getElementById('new-project-name-field');
     const currentProject = document.getElementById('current-project');
     const projectTodos = document.getElementById('project-todos')
+    const renameProjectDialog = document.getElementById('rename-project-dialog');
+    const submitRenameProjectButton = document.getElementById('submit-rename-project');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
@@ -21,14 +23,23 @@ function controller(){
                         newProjectInput.value = '';
                         createNewProject(newName);
                         newFormDialog.close();
-                        });
+    });
 
     closeNewProjectButton.addEventListener('click', (event) => {
                         event.preventDefault();
                         newFormDialog.close();
-                        });
+    });
+
+    function editProjectName(id, newName) {
+        const project = projects.getProjectById(id);
+        project.name = newName;
+        currentProject.innerText = newName;
+        const projectCard = projectContainer.querySelector(`[data-id=${id}]`);
+        projectCard.innerText = newName;
+    }
 
     const projects = userProjects();
+
 
     function renderCurrentProject(projectId) {
         currentProject.innerHTML = '';
@@ -36,10 +47,18 @@ function controller(){
         const projectName = document.createElement('div');
         projectName.innerText = project.name;
         projectName.classList.add('project-name')
+
         const editProjectButton = document.createElement('button');
         editProjectButton.innerText = 'Rename';
         editProjectButton.dataset.id = projectId;
-        editProjectButton.classList.add('edit-project-button')
+        editProjectButton.classList.add('edit-project-button');
+
+        editProjectButton.addEventListener('click', (event) => {
+            submitRenameProjectButton.dataset.id = projectId;
+            renameProjectDialog.showModal();
+
+        })
+
         const deleteProjectButton = document.createElement('button');
         deleteProjectButton.innerText = 'Delete';
         deleteProjectButton.dataset.id = projectId;
@@ -50,6 +69,8 @@ function controller(){
         currentProjectButtons.appendChild(deleteProjectButton);
         currentProject.appendChild(projectName);
         currentProject.append(currentProjectButtons);
+
+
 
     }
 
