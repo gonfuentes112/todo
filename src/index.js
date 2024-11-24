@@ -11,9 +11,19 @@ function controller(){
     const newProjectInput = document.getElementById('new-project-name-field');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
-    submitNewProjectButton.addEventListener('click', addNewProject);
+    submitNewProjectButton.addEventListener('click', (event) => {
+                        if (!newProjectInput.value) {
+                            return;
+                        }
+                        event.preventDefault();
+                        const newName = newProjectInput.value;
+                        newProjectInput.value = '';
+                        createNewProject(newName);
+                        newFormDialog.close();
+                        });
+
     closeNewProjectButton.addEventListener('click', (event) => {
-                        event.preventDefault;
+                        event.preventDefault();
                         newFormDialog.close();
                         });
 
@@ -31,12 +41,6 @@ function controller(){
 
     function newProjectButtonHandler() {
         newFormDialog.showModal();
-    }
-
-    function addNewProject(){
-        const newName = newProjectInput.value;
-        createNewProject(newName);
-        newFormDialog.close();    
     }
 
     createNewProject('Default');
