@@ -19,6 +19,7 @@ function userProjects() {
     function addProject(name) {
         const newProject = new Project(nextProjectId, name);
         projects.push(newProject);
+        nextProjectId++;
         return newProject;
     }
 

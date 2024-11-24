@@ -4,6 +4,8 @@ import { userProjects } from "./userProjects";
 function controller(){
     const projectContainer = document.getElementById('project-container');
     const newProjectButton = document.getElementById('new-project-button');
+    const projectTodos = document.getElementById('project-todos');
+
     newProjectButton.addEventListener('click', createNewProjectHandler);
 
     const projects = userProjects();
@@ -13,6 +15,7 @@ function controller(){
         const newProject = projects.addProject(name);
         const newDiv = document.createElement('div');
         newDiv.classList.add('project-card');
+        newDiv.dataset.id = newProject.id;
         newDiv.innerText = newProject.name;
         projectContainer.appendChild(newDiv);
     }
