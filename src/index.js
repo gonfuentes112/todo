@@ -22,7 +22,7 @@ function controller(){
 
     function createNewProject(name) {
         const newProject = projects.addProject(name);
-        const newDiv = document.createElement('div');
+        const newDiv = document.createElement('button');
         newDiv.classList.add('project-card');
         newDiv.dataset.id = newProject.id;
         newDiv.innerText = newProject.name;
