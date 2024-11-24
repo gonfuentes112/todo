@@ -1,7 +1,8 @@
 import { Todo } from "./todo";
 
 class Project {
-    constructor(name, nextTodoId = 0, todosList=[]){
+    constructor(id, name, nextTodoId = 0, todosList=[]){
+        this.id = id;
         let nextTodoId = nextTodoId;
         this.name = name;
 
@@ -14,6 +15,24 @@ class Project {
         }
         
     }
+
+//#regionGetterSetter
+        get id() {
+            return this._id;
+        }
+
+        set id(value) {
+            this._id = value;
+        }
+
+        get name() {
+            return this._name;
+        }
+
+        set name(value) {
+            this._name = value;
+        }
+//#endregionGetterSetter
 
     addNewTodo(title, description, dueDate, priority, done){
         const newTodo = new Todo(nextTodoId, title, description, dueDate, priority, done)
