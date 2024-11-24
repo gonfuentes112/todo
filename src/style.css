@@ -7,9 +7,10 @@
 body {
     height: 100vh;
     background-color: black;
+    color: darkviolet;
     display: grid;
     grid-template-columns: 1fr 6fr;
-    line-height: 1.5;
+    line-height: 1.5;    
 }
 
 #sidebar {
@@ -21,7 +22,6 @@ body {
 }
 
 #sidebar h1 {
-    color: darkviolet;
     margin-top: 0.2rem;
     font-size: 2rem;
 }
@@ -38,7 +38,6 @@ body {
 .project-card {
     border-radius: 0.5rem;
     box-shadow: inset 0px 0px 1px darkviolet;
-    color: darkviolet;
     font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
@@ -55,4 +54,43 @@ body {
     height: 4rem;
     justify-self: center;
     cursor: pointer;
+}
+
+#new-project-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: black;
+    border: 1px solid darkviolet;
+    border-radius: 0.5rem;
+}
+
+.new-project-items {
+    color: darkviolet;
+    display: grid;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#new-project-dialog input {
+    background-color: #222;
+    color: darkviolet;
+    border: 1px solid darkviolet;
+    border-radius: 0.5rem;
+}
+
+#new-project-dialog label{
+    text-align: center;
+}
+
+.new-project-buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#new-project-dialog button {
+    background-color: black;
+    border: 1px solid darkviolet;
+    border-radius: 0.5rem;
+    color: darkviolet; 
 }
