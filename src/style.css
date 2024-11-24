@@ -47,6 +47,7 @@ body {
     overflow: hidden;
     padding: 0 0.5rem;
     width: 100%;
+    cursor: pointer;
 }
 
 #new-project-button {
