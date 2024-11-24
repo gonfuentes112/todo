@@ -7,10 +7,15 @@ function controller(){
     const projectTodos = document.getElementById('project-todos');
     const newFormDialog = document.getElementById('new-project-dialog');
     const submitNewProjectButton = document.getElementById('submit-new-project');
+    const closeNewProjectButton = document.getElementById('close-new-project-dialog');
     const newProjectInput = document.getElementById('new-project-name-field');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', addNewProject);
+    closeNewProjectButton.addEventListener('click', (event) => {
+                        event.preventDefault;
+                        newFormDialog.close();
+                        });
 
     const projects = userProjects();
 
@@ -33,6 +38,7 @@ function controller(){
         createNewProject(newName);
         newFormDialog.close();    
     }
+
     createNewProject('Default');
 
 
