@@ -5,11 +5,11 @@ function userProjects() {
     let nextProjectId = 0;
 
     function getProjects(){
-        return this.projects;
+        return projects;
     }
 
     function getProjectById(projectId) {
-        const target = this.projects.find((project) => project && project.id === projectId);
+        const target = projects.find((project) => project && project.id === projectId);
         if (target) {
             return target;
         }
@@ -24,7 +24,7 @@ function userProjects() {
     }
 
     function deleteProject(projectId) {
-        const targetIndex = this.projects.findIndex((project) => project && project.id === projectId);
+        const targetIndex = projects.findIndex((project) => project && project.id === projectId);
         if (targetIndex !== -1) {
             projects[targetIndex] = null;
         }

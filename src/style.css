@@ -101,3 +101,8 @@ body {
     border-radius: 0.5rem;
     color: darkviolet; 
 }
+
+#project-main {
+    display: grid;
+    grid-template-rows: 2fr 9fr;
+}
