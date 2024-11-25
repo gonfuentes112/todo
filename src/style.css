@@ -50,7 +50,8 @@ body {
     cursor: pointer;
 }
 
-#new-project-button {
+#new-project-button,
+#new-todo-button {
     border-radius: 50%;
     font-size: 2rem;
     text-align: center;
@@ -94,7 +95,8 @@ dialog label{
 
 .new-project-buttons,
 .rename-project-buttons,
-.delete-project-buttons {
+.delete-project-buttons,
+.new-todo-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -108,7 +110,8 @@ dialog button {
 
 #project-main {
     display: grid;
-    grid-template-rows: 2fr 9fr;
+    grid-template-rows: 2fr 8fr;
+    max-height: 100vh;
 }
 
 #current-project {
