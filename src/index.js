@@ -13,7 +13,10 @@ function controller(){
     const renameProjectDialog = document.getElementById('rename-project-dialog');
     const renameProjectInput = document.getElementById('rename-project-name-field');
     const submitRenameProjectButton = document.getElementById('submit-rename-project');
-    const closeRenameButton = document.getElementById('close-rename-project-dialog');
+    const closeRenameProjectButton = document.getElementById('close-rename-project-dialog');
+    const deleteProjectDialog = document.getElementById('delete-project-dialog');
+    const submitDeleteProjectButton = document.getElementById('submit-delete-project');
+    const closeDeleteButton = document.getElementById('close-delete-project-dialog');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
@@ -43,10 +46,30 @@ function controller(){
         renameProjectDialog.close();
 });
 
-closeRenameButton.addEventListener('click', (event) => {
+    closeRenameProjectButton.addEventListener('click', (event) => {
         event.preventDefault();
         renameProjectDialog.close();
 });
+
+    function deleteProject(projectId) {
+        projects.deleteProject(Number(projectId));
+        currentProject.innerHTML = '';
+        const projectCard = projectContainer.querySelector(`[data-id="${projectId}"]`);
+        projectCard.remove();
+    }
+
+    submitDeleteProjectButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const newName = renameProjectInput.value;
+        renameProjectInput.value = '';
+        deleteProject(submitDeleteProjectButton.dataset.id);
+        deleteProjectDialog.close();
+    });
+
+    closeDeleteButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        deleteProjectDialog.close();
+    });
 
     function editProjectName(projectId, newName) {
         const project = projects.getProjectById(Number(projectId));
@@ -81,6 +104,13 @@ closeRenameButton.addEventListener('click', (event) => {
         deleteProjectButton.innerText = 'Delete';
         deleteProjectButton.dataset.id = projectId;
         deleteProjectButton.classList.add('delete-project-button')
+
+        deleteProjectButton.addEventListener('click', (event) => {
+            submitDeleteProjectButton.dataset.id = projectId;
+            deleteProjectDialog.showModal();
+        })
+
+
         const currentProjectButtons = document.createElement('div');
         currentProjectButtons.classList.add('current-project-buttons')
         currentProjectButtons.appendChild(editProjectButton);
