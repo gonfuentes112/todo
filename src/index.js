@@ -18,6 +18,7 @@ function controller(){
     const submitDeleteProjectButton = document.getElementById('submit-delete-project');
     const closeDeleteButton = document.getElementById('close-delete-project-dialog');
     const newTodoButtonContainer = document.getElementById('new-todo-button-container');
+    const newTodoDialog = document.getElementById('new-todo-dialog');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
@@ -122,6 +123,7 @@ function controller(){
         newTodoButton.classList.add('new-todo-button');
         newTodoButton.innerText = '+';
         newTodoButton.dataset.projectId = projectId;
+        newTodoButton.addEventListener('click', newTodoHandler);
         newTodoButtonContainer.innerHTML = '';
         newTodoButtonContainer.appendChild(newTodoButton);
 
@@ -150,6 +152,10 @@ function controller(){
 
     function newProjectButtonHandler() {
         newFormDialog.showModal();
+    }
+
+    function newTodoHandler() {
+        newTodoDialog.showModal();
     }
 
     createNewProject('Default');
