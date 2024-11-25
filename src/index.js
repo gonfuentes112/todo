@@ -11,7 +11,9 @@ function controller(){
     const currentProject = document.getElementById('current-project');
     const projectTodos = document.getElementById('project-todos')
     const renameProjectDialog = document.getElementById('rename-project-dialog');
+    const renameProjectInput = document.getElementById('rename-project-name-field');
     const submitRenameProjectButton = document.getElementById('submit-rename-project');
+    const closeRenameButton = document.getElementById('close-rename-project-dialog');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
@@ -30,11 +32,27 @@ function controller(){
                         newFormDialog.close();
     });
 
-    function editProjectName(id, newName) {
-        const project = projects.getProjectById(id);
+    submitRenameProjectButton.addEventListener('click', (event) => {
+        if (!renameProjectInput.value) {
+            return;
+        }
+        event.preventDefault();
+        const newName = renameProjectInput.value;
+        renameProjectInput.value = '';
+        editProjectName(submitRenameProjectButton.dataset.id, newName);
+        renameProjectDialog.close();
+});
+
+closeRenameButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        renameProjectDialog.close();
+});
+
+    function editProjectName(projectId, newName) {
+        const project = projects.getProjectById(Number(projectId));
         project.name = newName;
-        currentProject.innerText = newName;
-        const projectCard = projectContainer.querySelector(`[data-id=${id}]`);
+        renderCurrentProject(projectId);
+        const projectCard = projectContainer.querySelector(`[data-id="${projectId}"]`);
         projectCard.innerText = newName;
     }
 
