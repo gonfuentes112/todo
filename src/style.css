@@ -106,6 +106,7 @@ dialog button {
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
     color: darkviolet; 
+    cursor: pointer;
 }
 
 #project-main {
@@ -142,4 +143,5 @@ dialog button {
     cursor: pointer;
     height: 7.5rem;
     width: 7.5rem;
+    cursor: pointer;
 }
