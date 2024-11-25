@@ -51,7 +51,7 @@ body {
 }
 
 #new-project-button,
-#new-todo-button {
+.new-todo-button {
     border-radius: 50%;
     font-size: 2rem;
     text-align: center;
@@ -144,4 +144,11 @@ dialog button {
     height: 7.5rem;
     width: 7.5rem;
     cursor: pointer;
+}
+
+#new-todo-button-container{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
 }

@@ -17,6 +17,7 @@ function controller(){
     const deleteProjectDialog = document.getElementById('delete-project-dialog');
     const submitDeleteProjectButton = document.getElementById('submit-delete-project');
     const closeDeleteButton = document.getElementById('close-delete-project-dialog');
+    const newTodoButtonContainer = document.getElementById('new-todo-button-container');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
@@ -56,12 +57,11 @@ function controller(){
         currentProject.innerHTML = '';
         const projectCard = projectContainer.querySelector(`[data-project-id="${projectId}"]`);
         projectCard.remove();
+        newTodoButtonContainer.innerHTML = '';
     }
 
     submitDeleteProjectButton.addEventListener('click', (event) => {
         event.preventDefault();
-        const newName = renameProjectInput.value;
-        renameProjectInput.value = '';
         deleteProject(submitDeleteProjectButton.dataset.projectId);
         deleteProjectDialog.close();
     });
@@ -118,7 +118,12 @@ function controller(){
         currentProject.appendChild(projectName);
         currentProject.append(currentProjectButtons);
 
-
+        const newTodoButton = document.createElement('button');
+        newTodoButton.classList.add('new-todo-button');
+        newTodoButton.innerText = '+';
+        newTodoButton.dataset.projectId = projectId;
+        newTodoButtonContainer.innerHTML = '';
+        newTodoButtonContainer.appendChild(newTodoButton);
 
     }
 
