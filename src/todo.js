@@ -12,6 +12,10 @@ class Todo {
             return this._id;
         }
 
+        set id(id) {
+            this._id = id;
+        }
+
         get title(){
             return this._title;
         }

@@ -5,15 +5,13 @@ class Project {
         this.id = id;
         this.nextTodoId = nextTodoId;
         this.name = name;
+        this.todosList = [];
 
         if (todosList) {
             todosList.forEach((todo) => {
                 this.addExistingTodo(todo);
             })
-        } else {
-            this.todosList = todosList;
-        }
-        
+        }         
     }
 
 //#regionGetterSetter
@@ -35,9 +33,10 @@ class Project {
 //#endregionGetterSetter
 
     addNewTodo(title, description, dueDate, priority, done){
-        const newTodo = new Todo(nextTodoId, title, description, dueDate, priority, done)
-        nextTodoId++;
+        const newTodo = new Todo(this.nextTodoId, title, description, dueDate, priority, done);
+        this.nextTodoId++;
         this.todosList.push(newTodo);
+        return newTodo;
     }
 
     addExistingTodo(todo){

@@ -7,7 +7,7 @@ function controller(){
     const newFormDialog = document.getElementById('new-project-dialog');
     const submitNewProjectButton = document.getElementById('submit-new-project');
     const closeNewProjectButton = document.getElementById('close-new-project-dialog');
-    const newProjectInput = document.getElementById('new-project-name-field');
+    
     const currentProject = document.getElementById('current-project');
     const projectTodos = document.getElementById('project-todos')
     const renameProjectDialog = document.getElementById('rename-project-dialog');
@@ -19,13 +19,17 @@ function controller(){
     const closeDeleteButton = document.getElementById('close-delete-project-dialog');
     const newTodoButtonContainer = document.getElementById('new-todo-button-container');
     const newTodoDialog = document.getElementById('new-todo-dialog');
+    const submitNewTodoButton = document.getElementById('submit-new-todo');
+    const closeNewTodoButton = document.getElementById('close-new-todo-dialog');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const newProjectInput = document.getElementById('new-project-name-field');
                         if (!newProjectInput.value) {
                             return;
                         }
-                        event.preventDefault();
+
                         const newName = newProjectInput.value;
                         newProjectInput.value = '';
                         createNewProject(newName);
@@ -38,10 +42,10 @@ function controller(){
     });
 
     submitRenameProjectButton.addEventListener('click', (event) => {
+        event.preventDefault();
         if (!renameProjectInput.value) {
             return;
         }
-        event.preventDefault();
         const newName = renameProjectInput.value;
         renameProjectInput.value = '';
         editProjectName(submitRenameProjectButton.dataset.projectId, newName);
@@ -79,6 +83,34 @@ function controller(){
         const projectCard = projectContainer.querySelector(`[data-project-id="${projectId}"]`);
         projectCard.innerText = newName;
     }
+
+    submitNewTodoButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const newTodoTitle = document.getElementById('new-todo-title-field').value;
+        if (!newTodoTitle) {
+            return;
+        }
+        const newTodoDescription = document.getElementById('new-todo-description-field').value;
+        const newTodoDate = document.getElementById('new-todo-date-field').value;
+        const newTodoPriority = document.getElementById('new-todo-priority').value;
+        const newTodoDone = document.getElementById('new-todo-done').checked;
+
+        const projectId = event.target.dataset.projectId;
+        const project = projects.getProjectById(Number(projectId));
+        project.addNewTodo(newTodoTitle, newTodoDescription, newTodoDate, newTodoPriority, newTodoDone);
+
+ 
+        // const newName = newProjectInput.value;
+        // newProjectInput.value = '';
+        // createNewProject(newName);
+        newTodoDialog.close();
+    });
+
+    closeNewTodoButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            newTodoDialog.close();
+    });
+
 
     const projects = userProjects();
 
@@ -123,7 +155,7 @@ function controller(){
         newTodoButton.classList.add('new-todo-button');
         newTodoButton.innerText = '+';
         newTodoButton.dataset.projectId = projectId;
-        newTodoButton.addEventListener('click', newTodoHandler);
+        newTodoButton.addEventListener('click', (event) => {newTodoHandler(event)});
         newTodoButtonContainer.innerHTML = '';
         newTodoButtonContainer.appendChild(newTodoButton);
 
@@ -154,7 +186,9 @@ function controller(){
         newFormDialog.showModal();
     }
 
-    function newTodoHandler() {
+    function newTodoHandler(event) {
+        const projectId = event.target.dataset.projectId;
+        submitNewTodoButton.dataset.projectId = projectId;
         newTodoDialog.showModal();
     }
 
