@@ -177,3 +177,21 @@ select {
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
 }
+
+#project-todos {
+    overflow: auto;
+    scrollbar-color: darkviolet black;
+}
+
+.todo-card {
+    display: grid;
+    background-color: black;
+    border: 1px solid darkviolet;
+    border-radius: 0.5rem;
+    color: darkviolet;
+    padding: 0.1rem 0.5rem;
+}
+
+.todo-card-title {
+    font-size: 2rem;
+}
