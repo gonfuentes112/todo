@@ -188,12 +188,36 @@ select {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: space-between;
-    background-color: black;
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
     color: darkviolet;
     padding: 0.1rem 0.5rem;
 }
+
+.todo-card[data-priority="medium"] .todo-card-title{
+    color: black;
+}
+
+.todo-card[data-priority="low"]  {
+    border-color: #660;
+}
+
+.todo-card[data-priority="low"] .todo-card-title{
+    color: #660;
+
+}
+
+.todo-card[data-priority="high"]  {
+    border-color: red;
+}
+
+.todo-card[data-priority="high"] .todo-card-title {
+    color: red;
+    border-color: red;
+
+}
+
+
 
 .todo-card-title {
     font-size: 2rem;

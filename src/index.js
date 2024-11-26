@@ -210,7 +210,6 @@ function controller(){
 
         const optionMedium = document.createElement("option");
         optionMedium.setAttribute("value", "medium");
-        optionMedium.setAttribute("selected", "selected");
         optionMedium.textContent = "Medium";
 
         const optionLow = document.createElement("option");
@@ -225,6 +224,19 @@ function controller(){
         priorityContainer.classList.add('priority-container');
         priorityContainer.appendChild(label);
         priorityContainer.appendChild(select);
+
+        if (todo.priority === 'medium') {
+            optionMedium.setAttribute("selected", "selected");
+            todoCard.dataset.priority="medium";
+        }
+        if (todo.priority === 'high') {
+            optionHigh.setAttribute("selected", "selected");
+            todoCard.dataset.priority="high";
+        }
+        if (todo.priority === 'low') {
+            optionLow.setAttribute("selected", "selected");
+            todoCard.dataset.priority="low";
+        }
    
         todoCard.appendChild(todoCardTitle);
         todoCard.appendChild(todoCardDate);
