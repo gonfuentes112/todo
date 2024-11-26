@@ -187,14 +187,52 @@ function controller(){
         todoCardDate.classList.add('todo-card-date');
         todoCardDate.innerText = todo.dueDate;
 
+        const todoCardExpandedInfo = document.createElement('div');
+        todoCardExpandedInfo.classList.add('todo-card-expanded-info');
+        
+
+        const todoCardDescription= document.createElement('div');
+        todoCardDescription.classList.add('todo-card-description');
+        todoCardDescription.innerText = todo.description;
+
+
+        const label = document.createElement("label");
+        label.setAttribute("for", "todo-priority");
+        label.textContent = "Priority:";
+
+        const select = document.createElement("select");
+        select.setAttribute("id", `${projectID}-${todo.id}-todo-priority`);
+        select.setAttribute("name", "todo-priority");
+
+        const optionHigh = document.createElement("option");
+        optionHigh.setAttribute("value", "high");
+        optionHigh.textContent = "High";
+
+        const optionMedium = document.createElement("option");
+        optionMedium.setAttribute("value", "medium");
+        optionMedium.setAttribute("selected", "selected");
+        optionMedium.textContent = "Medium";
+
+        const optionLow = document.createElement("option");
+        optionLow.setAttribute("value", "low");
+        optionLow.textContent = "Low";
+
+        select.appendChild(optionHigh);
+        select.appendChild(optionMedium);
+        select.appendChild(optionLow);
+
+        const priorityContainer = document.createElement('div');
+        priorityContainer.classList.add('priority-container');
+        priorityContainer.appendChild(label);
+        priorityContainer.appendChild(select);
+   
         todoCard.appendChild(todoCardTitle);
         todoCard.appendChild(todoCardDate);
+        todoCard.appendChild(priorityContainer);
 
         projectTodos.appendChild(todoCard);
 
-        // this.title = title;
         // this.description = description;
-        // this.dueDate = dueDate;
         // this.priority = priority;
         // this.done = done;
     }
