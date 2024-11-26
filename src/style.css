@@ -179,12 +179,15 @@ select {
 }
 
 #project-todos {
+    height: 100%;
     overflow: auto;
     scrollbar-color: darkviolet black;
 }
 
 .todo-card {
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
     background-color: black;
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
@@ -194,4 +197,8 @@ select {
 
 .todo-card-title {
     font-size: 2rem;
+}
+
+.todoCardDate {
+    text-align: end;
 }
