@@ -197,8 +197,12 @@ select {
 
 .todo-card-title {
     font-size: 2rem;
+    display: flex;
+    align-items: center;
 }
 
-.todoCardDate {
-    text-align: end;
+.todo-card-date {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }

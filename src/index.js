@@ -179,7 +179,7 @@ function controller(){
         todoCardTitle.innerText = todo.title;
 
         const todoCardDate = document.createElement('div');
-        todoCardTitle.classList.add('todo-card-data');
+        todoCardDate.classList.add('todo-card-date');
         todoCardDate.innerText = todo.dueDate;
 
         todoCard.appendChild(todoCardTitle);
