@@ -220,6 +220,12 @@ function controller(){
         select.appendChild(optionMedium);
         select.appendChild(optionLow);
 
+        select.addEventListener('change', (event) => {
+            const newPrio = event.target.value;
+            const card = event.target.parentElement.parentElement;
+            card.dataset.priority = newPrio;
+        }); 
+
         const priorityContainer = document.createElement('div');
         priorityContainer.classList.add('priority-container');
         priorityContainer.appendChild(label);

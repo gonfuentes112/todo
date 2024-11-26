@@ -194,10 +194,6 @@ select {
     padding: 0.1rem 0.5rem;
 }
 
-.todo-card[data-priority="medium"] .todo-card-title{
-    color: black;
-}
-
 .todo-card[data-priority="low"]  {
     border-color: #660;
 }
@@ -217,8 +213,6 @@ select {
 
 }
 
-
-
 .todo-card-title {
     font-size: 2rem;
     display: flex;
@@ -229,4 +223,11 @@ select {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+.priority-container {
+    width: 20%;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
 }
