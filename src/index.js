@@ -157,6 +157,11 @@ function controller(){
         newTodoButtonContainer.innerHTML = '';
         newTodoButtonContainer.appendChild(newTodoButton);
 
+        projectTodos.innerHTML = '';
+        project.todosList.forEach((todo) => {
+            createNewTodo(projectId, todo);
+        })
+
     }
 
     function openProject(event) {

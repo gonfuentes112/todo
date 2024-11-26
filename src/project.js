@@ -30,6 +30,14 @@ class Project {
         set name(value) {
             this._name = value;
         }
+
+        get todosList() {
+            return this._todosList;
+        }
+
+        set todosList(todosList) {
+            this._todosList = todosList;
+        }
 //#endregionGetterSetter
 
     addNewTodo(title, description, dueDate, priority, done){
