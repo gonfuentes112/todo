@@ -97,12 +97,10 @@ function controller(){
 
         const projectId = event.target.dataset.projectId;
         const project = projects.getProjectById(Number(projectId));
-        project.addNewTodo(newTodoTitle, newTodoDescription, newTodoDate, newTodoPriority, newTodoDone);
-
- 
-        // const newName = newProjectInput.value;
-        // newProjectInput.value = '';
-        // createNewProject(newName);
+        const newTodo = project.addNewTodo(newTodoTitle, newTodoDescription, newTodoDate, newTodoPriority, newTodoDone);
+        
+        createNewTodo(projectId, newTodo);
+        ///////////////////////////////////////////////////////////////////////////////
         newTodoDialog.close();
     });
 
@@ -168,6 +166,32 @@ function controller(){
             renderCurrentProject(projectId);
         }
 
+    }
+
+    function createNewTodo(projectID, todo) {
+        const todoCard = document.createElement('div');
+        todoCard.classList.add('todo-card');
+        todoCard.dataset.projectId = projectID;
+        todoCard.dataset.todoId = todo.id;
+
+        const todoCardTitle = document.createElement('div');
+        todoCardTitle.classList.add('todo-card-title');
+        todoCardTitle.innerText = todo.title;
+
+        const todoCardDate = document.createElement('div');
+        todoCardTitle.classList.add('todo-card-data');
+        todoCardDate.innerText = todo.dueDate;
+
+        todoCard.appendChild(todoCardTitle);
+        todoCard.appendChild(todoCardDate);
+
+        projectTodos.appendChild(todoCard);
+
+        // this.title = title;
+        // this.description = description;
+        // this.dueDate = dueDate;
+        // this.priority = priority;
+        // this.done = done;
     }
 
     projectContainer.addEventListener('click', (event) => openProject(event));
