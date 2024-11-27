@@ -220,6 +220,15 @@ select {
     align-items: center;
 }
 
+.todo-card.done {
+    border-color: gray;
+}
+
+.todo-card.done .todo-card-title {
+    text-decoration: line-through;
+    color: gray;
+}
+
 .todo-card-date {
     display: flex;
     justify-content: flex-end;

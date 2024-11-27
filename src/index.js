@@ -219,8 +219,25 @@ function controller(){
             card.remove();
         });
 
+        const labelDoneCheckbox = document.createElement('label');
+        labelDoneCheckbox.setAttribute('for', `${todo.id}-done-checkbox`);
+        labelDoneCheckbox.innerText = "Done?";
+
+        const doneCheckbox = document.createElement('input');
+        doneCheckbox.setAttribute('type', 'checkbox');
+        doneCheckbox.id = `${todo.id}-done-checkbox`;
+        if (todo.done) {
+            doneCheckbox.checked = true;
+        }
+        doneCheckbox.addEventListener('change', (event) => {
+            const card = event.target.parentElement.parentElement;
+            card.classList.toggle('done');
+        })
+
         todoButtonContainer.appendChild(expandButton);
         todoButtonContainer.appendChild(deleteTodoButton);
+        todoButtonContainer.appendChild(labelDoneCheckbox);
+        todoButtonContainer.appendChild(doneCheckbox);
 
 
         const todoCardExpandedInfo = document.createElement('div');
@@ -292,9 +309,13 @@ function controller(){
         todoCard.appendChild(todoButtonContainer);
         todoCard.appendChild(todoCardExpandedInfo);
 
+        if (doneCheckbox.checked) {
+            todoCard.classList.add('done');
+        }
+
         projectTodos.appendChild(todoCard);
 
-        // this.done = done;
+
     }
 
     projectContainer.addEventListener('click', (event) => openProject(event));
