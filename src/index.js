@@ -171,33 +171,33 @@ function controller(){
             editDialog.close();
     });
 
-    // submitEditTodoTitleButton.addEventListener('click', (event) => {
+    submitEditTodoDescButton.addEventListener('click', (event) => {
 
-    //     const newTodoTitle = document.getElementById('edit-todo-title-field').value;
-    //     if (!newTodoTitle) {
-    //         return;
-    //     }
-    //     event.preventDefault();
+        const newTodoDesc = document.getElementById('edit-todo-description-field').value;
+        if (!newTodoDesc) {
+            return;
+        }
+        event.preventDefault();
 
-    //     const projectId = event.target.dataset.projectId;
-    //     const project = projects.getProjectById(Number(projectId));
-    //     const todoId = event.target.dataset.todoId;
-    //     const todo = project.getTodoObject(Number(todoId));
-    //     todo.title = newTodoTitle;
+        const projectId = event.target.dataset.projectId;
+        const project = projects.getProjectById(Number(projectId));
+        const todoId = event.target.dataset.todoId;
+        const todo = project.getTodoObject(Number(todoId));
+        todo.description = newTodoDesc;
 
-    //     const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
-    //     const cardTitle = card.querySelector('.todo-card-title span');
-    //     cardTitle.innerText = newTodoTitle;
+        const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
+        const cardDesc = card.querySelector('.todo-card-description span');
+        cardDesc.innerText = newTodoDesc;
 
-    //     const editDialog = document.getElementById('edit-todo-title-dialog');
-    //     editDialog.close();
-    // });
+        const editDialog = document.getElementById('edit-todo-desc-dialog');
+        editDialog.close();
+    });
 
-    // closeEditTodoTitleButton.addEventListener('click', (event) => {
-    //         event.preventDefault();
-    //         const editDialog = document.getElementById('edit-todo-title-dialog');
-    //         editDialog.close();
-    // });
+    closeEditTodoDescButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const editDialog = document.getElementById('edit-todo-desc-dialog');
+            editDialog.close();
+    });
 
     const projects = userProjects();
 
@@ -278,6 +278,14 @@ function controller(){
         submitButton.dataset.projectId = card.dataset.projectId;
         submitButton.dataset.todoId = card.dataset.todoId;
         const editDialog = document.getElementById('edit-todo-date-dialog');
+        editDialog.showModal();        
+    }
+
+    function openDescEdit(card) {
+        const submitButton = document.getElementById('submit-desc-edit');
+        submitButton.dataset.projectId = card.dataset.projectId;
+        submitButton.dataset.todoId = card.dataset.todoId;
+        const editDialog = document.getElementById('edit-todo-desc-dialog');
         editDialog.showModal();        
     }
 
@@ -374,13 +382,15 @@ function controller(){
 
         const todoCardDescription= document.createElement('div');
         todoCardDescription.classList.add('todo-card-description');
-        todoCardDescription.innerText = todo.description;
+        const descSpan = document.createElement('span');
+        descSpan.innerText = todo.description;
+        todoCardDescription.appendChild(descSpan);
 
         const editDescButton = document.createElement('button');
         editDescButton.innerText = "🖉";
-        // editTitleButton.addEventListener('click', (event) => {
-        //     openTitleEdit(todoCard);
-        // })
+        editDescButton.addEventListener('click', (event) => {
+            openDescEdit(todoCard);
+        })
         todoCardDescription.appendChild(editDescButton);
 
 
