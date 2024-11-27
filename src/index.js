@@ -21,6 +21,8 @@ function controller(){
     const newTodoDialog = document.getElementById('new-todo-dialog');
     const submitNewTodoButton = document.getElementById('submit-new-todo');
     const closeNewTodoButton = document.getElementById('close-new-todo-dialog');
+    const submitEditTodoTitleButton = document.getElementById('submit-title-edit');
+    const closeEditTodoTitleButton = document.getElementById('close-title-edit-dialog');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
@@ -109,6 +111,34 @@ function controller(){
             newTodoDialog.close();
     });
 
+    submitEditTodoTitleButton.addEventListener('click', (event) => {
+
+        const newTodoTitle = document.getElementById('edit-todo-title-field').value;
+        if (!newTodoTitle) {
+            return;
+        }
+        event.preventDefault();
+
+        const projectId = event.target.dataset.projectId;
+        const project = projects.getProjectById(Number(projectId));
+        const todoId = event.target.dataset.todoId;
+        const todo = project.getTodoObject(Number(todoId));
+        todo.title = newTodoTitle;
+
+        const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
+        const cardTitle = card.querySelector('.todo-card-title span');
+        cardTitle.innerText = newTodoTitle;
+
+        const editDialog = document.getElementById('edit-todo-title-dialog');
+        editDialog.close();
+    });
+
+    closeEditTodoTitleButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const editDialog = document.getElementById('edit-todo-title-dialog');
+            editDialog.close();
+    });
+
 
     const projects = userProjects();
 
@@ -176,6 +206,14 @@ function controller(){
 
     }
 
+    function openTitleEdit(card) {
+        const submitButton = document.getElementById('submit-title-edit');
+        submitButton.dataset.projectId = card.dataset.projectId;
+        submitButton.dataset.todoId = card.dataset.todoId;
+        const editDialog = document.getElementById('edit-todo-title-dialog');
+        editDialog.showModal();
+    }
+
     function createNewTodo(projectId, todo) {
         const todoCard = document.createElement('div');
         todoCard.classList.add('todo-card');
@@ -190,6 +228,9 @@ function controller(){
 
         const editTitleButton = document.createElement('button');
         editTitleButton.innerText = "🖉";
+        editTitleButton.addEventListener('click', (event) => {
+            openTitleEdit(todoCard);
+        })
         todoCardTitle.appendChild(editTitleButton);
 
         const todoCardDate = document.createElement('div');

@@ -69,6 +69,7 @@ dialog {
     top: 50%;
     left: 50%;
     background-color: black;
+    color: darkviolet;
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
 }
@@ -93,10 +94,7 @@ dialog label{
     text-align: center;
 }
 
-.new-project-buttons,
-.rename-project-buttons,
-.delete-project-buttons,
-.new-todo-buttons {
+.dialog-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
