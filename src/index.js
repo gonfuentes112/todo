@@ -186,11 +186,14 @@ function controller(){
         todoCardDate.classList.add('todo-card-date');
         todoCardDate.innerText = todo.dueDate;
 
+        const todoButtonContainer = document.createElement('div');
+        todoButtonContainer.classList.add('todo-button-container');
+
         const expandButton = document.createElement('button');
         expandButton.classList.add('expand-button');
         expandButton.innerText = 'V';
         expandButton.addEventListener('click', (event) => {
-            const parentNode = event.target.parentElement;
+            const parentNode = event.target.parentElement.parentElement;
             parentNode.classList.toggle('contract');
             if (parentNode.classList.contains('contract')) {
                 expandButton.innerText = 'V';
@@ -198,6 +201,7 @@ function controller(){
                 expandButton.innerText = 'Ʌ';
             }
         });
+        todoButtonContainer.appendChild(expandButton);
         todoCard.classList.toggle('contract');
 
         const todoCardExpandedInfo = document.createElement('div');
@@ -266,7 +270,7 @@ function controller(){
 
         todoCard.appendChild(todoCardTitle);
         todoCard.appendChild(todoCardDate);
-        todoCard.appendChild(expandButton);
+        todoCard.appendChild(todoButtonContainer);
         todoCard.appendChild(todoCardExpandedInfo);
 
         projectTodos.appendChild(todoCard);
