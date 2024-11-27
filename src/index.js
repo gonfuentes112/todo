@@ -100,7 +100,6 @@ function controller(){
         const newTodo = project.addNewTodo(newTodoTitle, newTodoDescription, newTodoDate, newTodoPriority, newTodoDone);
         
         createNewTodo(projectId, newTodo);
-        ///////////////////////////////////////////////////////////////////////////////
         newTodoDialog.close();
     });
 
@@ -187,6 +186,20 @@ function controller(){
         todoCardDate.classList.add('todo-card-date');
         todoCardDate.innerText = todo.dueDate;
 
+        const expandButton = document.createElement('button');
+        expandButton.classList.add('expand-button');
+        expandButton.innerText = '↓';
+        expandButton.addEventListener('click', (event) => {
+            const parentNode = event.target.parentElement;
+            parentNode.classList.toggle('contract');
+            if (parentNode.classList.contains('contract')) {
+                expandButton.innerText = '↓';
+            } else {
+                expandButton.innerText = '↑';
+            }
+        })
+        todoCard.classList.toggle('contract');
+
         const todoCardExpandedInfo = document.createElement('div');
         todoCardExpandedInfo.classList.add('todo-card-expanded-info');
         
@@ -243,16 +256,16 @@ function controller(){
             optionLow.setAttribute("selected", "selected");
             todoCard.dataset.priority="low";
         }
-   
+        todoCardExpandedInfo.appendChild(todoCardDescription);
+        todoCardExpandedInfo.appendChild(priorityContainer);
+
         todoCard.appendChild(todoCardTitle);
         todoCard.appendChild(todoCardDate);
-        todoCard.appendChild(todoCardDescription);
-        todoCard.appendChild(priorityContainer);
+        todoCard.appendChild(expandButton);
+        todoCard.appendChild(todoCardExpandedInfo);
 
         projectTodos.appendChild(todoCard);
 
-        // this.description = description;
-        // this.priority = priority;
         // this.done = done;
     }
 

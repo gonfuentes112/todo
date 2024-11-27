@@ -186,7 +186,7 @@ select {
 
 .todo-card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
     justify-content: space-between;
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
@@ -223,6 +223,22 @@ select {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+.expand-button {
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid darkviolet;
+    background-color: black;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: darkviolet;
+    justify-self: center;
+    cursor: pointer;
+}
+
+.todo-card.contract .todo-card-expanded-info {
+    display: none;
 }
 
 .todo-card-description {
