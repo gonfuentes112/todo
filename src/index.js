@@ -188,16 +188,16 @@ function controller(){
 
         const expandButton = document.createElement('button');
         expandButton.classList.add('expand-button');
-        expandButton.innerText = '↓';
+        expandButton.innerText = 'V';
         expandButton.addEventListener('click', (event) => {
             const parentNode = event.target.parentElement;
             parentNode.classList.toggle('contract');
             if (parentNode.classList.contains('contract')) {
-                expandButton.innerText = '↓';
+                expandButton.innerText = 'V';
             } else {
-                expandButton.innerText = '↑';
+                expandButton.innerText = 'Ʌ';
             }
-        })
+        });
         todoCard.classList.toggle('contract');
 
         const todoCardExpandedInfo = document.createElement('div');
@@ -235,7 +235,12 @@ function controller(){
 
         select.addEventListener('change', (event) => {
             const newPrio = event.target.value;
-            const card = event.target.parentElement.parentElement;
+            const card = event.target.parentElement.parentElement.parentElement;
+            const projectId = card.dataset.projectId;
+            const todoId = card.dataset.todoId;
+            const currentProject = projects.getProjectById(Number(projectId));
+            const currentTodo = currentProject.getTodoObject(Number(todoId));
+            currentTodo.priority = newPrio;
             card.dataset.priority = newPrio;
         }); 
 
