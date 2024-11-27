@@ -23,6 +23,10 @@ function controller(){
     const closeNewTodoButton = document.getElementById('close-new-todo-dialog');
     const submitEditTodoTitleButton = document.getElementById('submit-title-edit');
     const closeEditTodoTitleButton = document.getElementById('close-title-edit-dialog');
+    const submitEditTodoDateButton = document.getElementById('submit-date-edit');
+    const closeEditTodoDateButton = document.getElementById('close-date-edit-dialog');
+    const submitEditTodoDescButton = document.getElementById('submit-desc-edit');
+    const closeEditTodoDescButton = document.getElementById('close-desc-edit-dialog');
 
     newProjectButton.addEventListener('click', newProjectButtonHandler);
     submitNewProjectButton.addEventListener('click', (event) => {
@@ -139,6 +143,61 @@ function controller(){
             editDialog.close();
     });
 
+    submitEditTodoDateButton.addEventListener('click', (event) => {
+
+        const newTodoDate = document.getElementById('edit-todo-date-field').value;
+        if (!newTodoDate) {
+            return;
+        }
+        event.preventDefault();
+
+        const projectId = event.target.dataset.projectId;
+        const project = projects.getProjectById(Number(projectId));
+        const todoId = event.target.dataset.todoId;
+        const todo = project.getTodoObject(Number(todoId));
+        todo.date = newTodoDate;
+
+        const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
+        const cardDate = card.querySelector('.todo-card-date span');
+        cardDate.innerText = `Due date: ${newTodoDate}`;
+
+        const editDialog = document.getElementById('edit-todo-date-dialog');
+        editDialog.close();
+    });
+
+    closeEditTodoDateButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            const editDialog = document.getElementById('edit-todo-date-dialog');
+            editDialog.close();
+    });
+
+    // submitEditTodoTitleButton.addEventListener('click', (event) => {
+
+    //     const newTodoTitle = document.getElementById('edit-todo-title-field').value;
+    //     if (!newTodoTitle) {
+    //         return;
+    //     }
+    //     event.preventDefault();
+
+    //     const projectId = event.target.dataset.projectId;
+    //     const project = projects.getProjectById(Number(projectId));
+    //     const todoId = event.target.dataset.todoId;
+    //     const todo = project.getTodoObject(Number(todoId));
+    //     todo.title = newTodoTitle;
+
+    //     const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
+    //     const cardTitle = card.querySelector('.todo-card-title span');
+    //     cardTitle.innerText = newTodoTitle;
+
+    //     const editDialog = document.getElementById('edit-todo-title-dialog');
+    //     editDialog.close();
+    // });
+
+    // closeEditTodoTitleButton.addEventListener('click', (event) => {
+    //         event.preventDefault();
+    //         const editDialog = document.getElementById('edit-todo-title-dialog');
+    //         editDialog.close();
+    // });
 
     const projects = userProjects();
 
@@ -214,6 +273,14 @@ function controller(){
         editDialog.showModal();
     }
 
+    function openDateEdit(card) {
+        const submitButton = document.getElementById('submit-date-edit');
+        submitButton.dataset.projectId = card.dataset.projectId;
+        submitButton.dataset.todoId = card.dataset.todoId;
+        const editDialog = document.getElementById('edit-todo-date-dialog');
+        editDialog.showModal();        
+    }
+
     function createNewTodo(projectId, todo) {
         const todoCard = document.createElement('div');
         todoCard.classList.add('todo-card');
@@ -235,10 +302,15 @@ function controller(){
 
         const todoCardDate = document.createElement('div');
         todoCardDate.classList.add('todo-card-date');
-        todoCardDate.innerText = todo.dueDate;
+        const dateSpan = document.createElement('span');
+        dateSpan.innerText = todo.dueDate;
+        todoCardDate.appendChild(dateSpan);
 
         const editDateButton = document.createElement('button');
         editDateButton.innerText = "🖉";
+        editDateButton.addEventListener('click', (event) => {
+            openDateEdit(todoCard);
+        })
         todoCardDate.appendChild(editDateButton);
 
         const todoButtonContainer = document.createElement('div');
@@ -306,6 +378,9 @@ function controller(){
 
         const editDescButton = document.createElement('button');
         editDescButton.innerText = "🖉";
+        // editTitleButton.addEventListener('click', (event) => {
+        //     openTitleEdit(todoCard);
+        // })
         todoCardDescription.appendChild(editDescButton);
 
 
