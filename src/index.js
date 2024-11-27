@@ -230,14 +230,19 @@ function controller(){
             doneCheckbox.checked = true;
         }
         doneCheckbox.addEventListener('change', (event) => {
-            const card = event.target.parentElement.parentElement;
+            const card = event.target.parentElement.parentElement.parentElement;
             card.classList.toggle('done');
         })
 
+        const doneContainer = document.createElement('div');
+        doneContainer.classList.add('done-container');
+        doneContainer.appendChild(labelDoneCheckbox);
+        doneContainer.appendChild(doneCheckbox);
+
         todoButtonContainer.appendChild(expandButton);
         todoButtonContainer.appendChild(deleteTodoButton);
-        todoButtonContainer.appendChild(labelDoneCheckbox);
-        todoButtonContainer.appendChild(doneCheckbox);
+        todoButtonContainer.appendChild(doneContainer);
+
 
 
         const todoCardExpandedInfo = document.createElement('div');

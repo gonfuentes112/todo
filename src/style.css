@@ -236,8 +236,10 @@ select {
 }
 
 .todo-button-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
+    align-items: center;
     gap: 0.5rem;
 }
 
@@ -251,6 +253,13 @@ select {
     color: darkviolet;
     justify-self: center;
     cursor: pointer;
+}
+
+.done-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-end;
 }
 
 .todo-card.contract .todo-card-expanded-info {
