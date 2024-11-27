@@ -225,7 +225,12 @@ select {
     align-items: center;
 }
 
+.todo-card-description {
+    grid-row: 2;
+}
+
 .priority-container {
+    grid-row: 3;
     width: 20%;
     display: flex;
     gap: 1rem;

@@ -246,6 +246,7 @@ function controller(){
    
         todoCard.appendChild(todoCardTitle);
         todoCard.appendChild(todoCardDate);
+        todoCard.appendChild(todoCardDescription);
         todoCard.appendChild(priorityContainer);
 
         projectTodos.appendChild(todoCard);
