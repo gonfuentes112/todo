@@ -56,7 +56,7 @@ class Todo {
     toJSON(){
         return {
             id:this.id, 
-            title:this.id, 
+            title:this.title, 
             description:this.description, 
             dueDate:this.dueDate, 
             priority:this.priority,

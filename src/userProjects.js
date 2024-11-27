@@ -23,6 +23,14 @@ function userProjects() {
         return newProject;
     }
 
+    function addExistingProject(project) {
+        const currentId = nextProjectId;
+        const newProject = new Project(currentId, project.name, project.nextTodoId, project.todosList);
+        projects.push(newProject);
+        nextProjectId += 1;
+        return currentId;
+    }
+
     function deleteProject(projectId) {
         const targetIndex = projects.findIndex((project) => project && project.id === projectId);
         if (targetIndex !== -1) {
@@ -33,6 +41,7 @@ function userProjects() {
     return {getProjects,
             getProjectById,
             addProject,
+            addExistingProject,
             deleteProject,
     };
 }

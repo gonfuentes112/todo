@@ -24,6 +24,14 @@ function controller(){
         newDiv.innerText = newProject.name;
         projectContainer.appendChild(newDiv);
     }
+    function addExistingProject(project) {
+        const projectId = projects.addExistingProject(project);
+        const newDiv = document.createElement('button');
+        newDiv.classList.add('project-card');
+        newDiv.dataset.projectId = projectId;
+        newDiv.innerText = project.name;
+        projectContainer.appendChild(newDiv);
+    }
 
     const newProjectButton = document.getElementById('new-project-button');
     newProjectButton.addEventListener('click', () => {
@@ -532,14 +540,25 @@ function controller(){
 
 
 
+    if (!localStorage) {
+        createNewProject('Default');
+      } else {
+        const existingProjects = {};
 
+        for (let i = 0; i < localStorage.length; i++) {
+            const projectId = localStorage.key(i);
+            const project = localStorage.getItem(projectId);
+            existingProjects[projectId] = JSON.parse(project);
+        }
+        for (let id in existingProjects) {
+            const project = existingProjects[id];
+            if (!project) {
+                continue;
+            }
+            addExistingProject(project);
 
-
-
-
-
-    createNewProject('Default');
-
+        }
+      }
 
 
 }

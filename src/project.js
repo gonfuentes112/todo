@@ -48,7 +48,7 @@ class Project {
     }
 
     addExistingTodo(todo){
-        const newTodo = new Todo(todo.id, todo.title, todo.description, todo.dueDate, tood.priority, todo.done);
+        const newTodo = new Todo(todo.id, todo.title, todo.description, todo.dueDate, todo.priority, todo.done);
         this.todosList.push(newTodo);
         this.nextTodoId = todo.id + 1;
     }
