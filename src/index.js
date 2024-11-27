@@ -17,6 +17,7 @@ function controller(){
     //#regionCreateNewProject
     function createNewProject(name) {
         const newProject = projects.addProject(name);
+        localStorage.setItem(newProject.id, JSON.stringify(newProject));
         const newDiv = document.createElement('button');
         newDiv.classList.add('project-card');
         newDiv.dataset.projectId = newProject.id;
@@ -56,6 +57,7 @@ function controller(){
     function editProjectName(projectId, newName) {
         const project = projects.getProjectById(Number(projectId));
         project.name = newName;
+        localStorage.setItem(project.id, JSON.stringify(project));
         renderCurrentProject(projectId);
         const projectCard = projectContainer.querySelector(`[data-project-id="${projectId}"]`);
         projectCard.innerText = newName;
@@ -86,6 +88,7 @@ function controller(){
 
     function deleteProject(projectId) {
         projects.deleteProject(Number(projectId));
+        localStorage.removeItem(projectId);
         const currentProjectContainer = document.getElementById('current-project');
         currentProjectContainer.innerHTML = '';
         const projectCard = projectContainer.querySelector(`[data-project-id="${projectId}"]`);
@@ -133,6 +136,7 @@ function controller(){
         const newTodo = project.addNewTodo(newTodoTitle, newTodoDescription, newTodoDate, newTodoPriority, newTodoDone);
         
         createNewTodo(projectId, newTodo);
+        localStorage.setItem(projectId, JSON.stringify(project));
 
         const newTodoDialog = document.getElementById('new-todo-dialog');
         newTodoDialog.close();
@@ -163,6 +167,7 @@ function controller(){
         const todoId = event.target.dataset.todoId;
         const todo = project.getTodoObject(Number(todoId));
         todo.title = newTodoTitle;
+        localStorage.setItem(projectId, JSON.stringify(project));
 
         const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
         const cardTitle = card.querySelector('.todo-card-title span');
@@ -185,21 +190,23 @@ function controller(){
     const submitEditTodoDateButton = document.getElementById('submit-date-edit');
     submitEditTodoDateButton.addEventListener('click', (event) => {
 
-        const newTodoDate = document.getElementById('edit-todo-date-field').value;
+        let newTodoDate = document.getElementById('edit-todo-date-field').value;
         if (!newTodoDate) {
             return;
         }
+        newTodoDate = `Due date: ${newTodoDate}`;
         event.preventDefault();
 
         const projectId = event.target.dataset.projectId;
         const project = projects.getProjectById(Number(projectId));
         const todoId = event.target.dataset.todoId;
         const todo = project.getTodoObject(Number(todoId));
-        todo.date = newTodoDate;
+        todo.dueDate = newTodoDate;
+        localStorage.setItem(projectId, JSON.stringify(project));
 
         const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
         const cardDate = card.querySelector('.todo-card-date span');
-        cardDate.innerText = `Due date: ${newTodoDate}`;
+        cardDate.innerText = newTodoDate;
 
         const editDialog = document.getElementById('edit-todo-date-dialog');
         editDialog.close();
@@ -229,6 +236,7 @@ function controller(){
         const todoId = event.target.dataset.todoId;
         const todo = project.getTodoObject(Number(todoId));
         todo.description = newTodoDesc;
+        localStorage.setItem(projectId, JSON.stringify(project));
 
         const card = document.querySelector(`.todo-card[data-project-id="${projectId}"].todo-card[data-todo-id="${todoId}"]`);
         const cardDesc = card.querySelector('.todo-card-description span');
@@ -263,7 +271,7 @@ function controller(){
         const project = projects.getProjectById(Number(projectId));
         const projectName = document.createElement('div');
         projectName.innerText = project.name;
-        projectName.classList.add('project-name')
+        projectName.classList.add('project-name');
 
         const editProjectButton = document.createElement('button');
         editProjectButton.innerText = 'Rename';
@@ -404,6 +412,7 @@ function controller(){
             const todoId = card.dataset.todoId;
             const project = projects.getProjectById(Number(projectId));
             project.deleteTodo(Number(todoId));
+            localStorage.setItem(projectId, JSON.stringify(project));
             card.remove();
         });
 

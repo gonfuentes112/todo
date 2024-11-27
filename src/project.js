@@ -68,7 +68,7 @@ class Project {
         return {
             name: this.name,
             nextTodoId: this.nextTodoId,
-            todosList: this.todosList.map((todo) => {todo.toJSON();})
+            todosList: this.todosList.map((todo) => {if (todo) {return todo.toJSON();}})
         }
     }
 }
