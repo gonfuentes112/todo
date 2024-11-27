@@ -227,11 +227,12 @@ select {
 }
 
 .todo-button-container {
-    display: grid;
+    display: flex;
     justify-content: center;
+    gap: 0.5rem;
 }
 
-.expand-button {
+.todo-button-container button {
     border-radius: 0.5rem;
     text-align: center;
     border: 1px solid darkviolet;

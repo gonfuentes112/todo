@@ -158,7 +158,10 @@ function controller(){
 
         projectTodos.innerHTML = '';
         project.todosList.forEach((todo) => {
-            createNewTodo(projectId, todo);
+            if (todo) {
+                createNewTodo(projectId, todo);
+            }
+
         })
 
     }
@@ -172,10 +175,10 @@ function controller(){
 
     }
 
-    function createNewTodo(projectID, todo) {
+    function createNewTodo(projectId, todo) {
         const todoCard = document.createElement('div');
         todoCard.classList.add('todo-card');
-        todoCard.dataset.projectId = projectID;
+        todoCard.dataset.projectId = projectId;
         todoCard.dataset.todoId = todo.id;
 
         const todoCardTitle = document.createElement('div');
@@ -201,8 +204,23 @@ function controller(){
                 expandButton.innerText = 'Ʌ';
             }
         });
-        todoButtonContainer.appendChild(expandButton);
         todoCard.classList.toggle('contract');
+
+        const deleteTodoButton = document.createElement('button');
+        deleteTodoButton.classList.add('delete-todo-button');
+        deleteTodoButton.innerText = 'X';
+        deleteTodoButton.addEventListener('click', (event) => {
+            const card = event.target.parentElement.parentElement;
+            const projectId = card.dataset.projectId;
+            const todoId = card.dataset.todoId;
+            const project = projects.getProjectById(Number(projectId));
+            project.deleteTodo(Number(todoId));
+            card.remove();
+        });
+
+        todoButtonContainer.appendChild(expandButton);
+        todoButtonContainer.appendChild(deleteTodoButton);
+
 
         const todoCardExpandedInfo = document.createElement('div');
         todoCardExpandedInfo.classList.add('todo-card-expanded-info');
@@ -218,7 +236,7 @@ function controller(){
         label.textContent = "Priority:";
 
         const select = document.createElement("select");
-        select.setAttribute("id", `${projectID}-${todo.id}-todo-priority`);
+        select.setAttribute("id", `${projectId}-${todo.id}-todo-priority`);
         select.setAttribute("name", "todo-priority");
 
         const optionHigh = document.createElement("option");
