@@ -85,11 +85,12 @@ function controller(){
     }
 
     submitNewTodoButton.addEventListener('click', (event) => {
-        event.preventDefault();
+
         const newTodoTitle = document.getElementById('new-todo-title-field').value;
         if (!newTodoTitle) {
             return;
         }
+        event.preventDefault();
         const newTodoDescription = document.getElementById('new-todo-description-field').value;
         const newTodoDate = document.getElementById('new-todo-date-field').value;
         const newTodoPriority = document.getElementById('new-todo-priority').value;
