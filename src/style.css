@@ -218,21 +218,28 @@ select {
     font-size: 2rem;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .todo-card.done {
     border-color: gray;
 }
 
-.todo-card.done .todo-card-title {
+.todo-card.done .todo-card-title span {
     text-decoration: line-through;
     color: gray;
 }
 
+.todo-card.done .todo-card-title button{
+    text-decoration-line: none;
+    color: darkviolet;
+}
+
 .todo-card-date {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .todo-button-container {
@@ -241,9 +248,10 @@ select {
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    padding-left: 0.5rem;
 }
 
-.todo-button-container button {
+.todo-card button {
     border-radius: 0.5rem;
     text-align: center;
     border: 1px solid darkviolet;
@@ -251,7 +259,6 @@ select {
     width: 1.5rem;
     height: 1.5rem;
     color: darkviolet;
-    justify-self: center;
     cursor: pointer;
 }
 
@@ -268,6 +275,9 @@ select {
 
 .todo-card-description {
     grid-row: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .priority-container {

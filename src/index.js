@@ -184,11 +184,21 @@ function controller(){
 
         const todoCardTitle = document.createElement('div');
         todoCardTitle.classList.add('todo-card-title');
-        todoCardTitle.innerText = todo.title;
+        const titleSpan = document.createElement('span');
+        titleSpan.innerText = todo.title;
+        todoCardTitle.appendChild(titleSpan);
+
+        const editTitleButton = document.createElement('button');
+        editTitleButton.innerText = "🖉";
+        todoCardTitle.appendChild(editTitleButton);
 
         const todoCardDate = document.createElement('div');
         todoCardDate.classList.add('todo-card-date');
         todoCardDate.innerText = todo.dueDate;
+
+        const editDateButton = document.createElement('button');
+        editDateButton.innerText = "🖉";
+        todoCardDate.appendChild(editDateButton);
 
         const todoButtonContainer = document.createElement('div');
         todoButtonContainer.classList.add('todo-button-container');
@@ -252,6 +262,10 @@ function controller(){
         const todoCardDescription= document.createElement('div');
         todoCardDescription.classList.add('todo-card-description');
         todoCardDescription.innerText = todo.description;
+
+        const editDescButton = document.createElement('button');
+        editDescButton.innerText = "🖉";
+        todoCardDescription.appendChild(editDescButton);
 
 
         const label = document.createElement("label");
