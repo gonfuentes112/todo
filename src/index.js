@@ -2,33 +2,35 @@ import "./style.css";
 import { userProjects } from "./userProjects";
 
 function controller(){
-    const projectContainer = document.getElementById('project-container');
-    const newProjectButton = document.getElementById('new-project-button');
-    const newFormDialog = document.getElementById('new-project-dialog');
-    const submitNewProjectButton = document.getElementById('submit-new-project');
-    const closeNewProjectButton = document.getElementById('close-new-project-dialog');
-    
-    const currentProject = document.getElementById('current-project');
-    const projectTodos = document.getElementById('project-todos')
-    const renameProjectDialog = document.getElementById('rename-project-dialog');
-    const renameProjectInput = document.getElementById('rename-project-name-field');
-    const submitRenameProjectButton = document.getElementById('submit-rename-project');
-    const closeRenameProjectButton = document.getElementById('close-rename-project-dialog');
-    const deleteProjectDialog = document.getElementById('delete-project-dialog');
-    const submitDeleteProjectButton = document.getElementById('submit-delete-project');
-    const closeDeleteButton = document.getElementById('close-delete-project-dialog');
-    const newTodoButtonContainer = document.getElementById('new-todo-button-container');
-    const newTodoDialog = document.getElementById('new-todo-dialog');
-    const submitNewTodoButton = document.getElementById('submit-new-todo');
-    const closeNewTodoButton = document.getElementById('close-new-todo-dialog');
-    const submitEditTodoTitleButton = document.getElementById('submit-title-edit');
-    const closeEditTodoTitleButton = document.getElementById('close-title-edit-dialog');
-    const submitEditTodoDateButton = document.getElementById('submit-date-edit');
-    const closeEditTodoDateButton = document.getElementById('close-date-edit-dialog');
-    const submitEditTodoDescButton = document.getElementById('submit-desc-edit');
-    const closeEditTodoDescButton = document.getElementById('close-desc-edit-dialog');
+    function openProject(event) {
+        const target = event.target;
+        if (target.classList.contains('project-card')) {
+            const projectId = target.dataset.projectId;
+            renderCurrentProject(projectId);
+        }
 
-    newProjectButton.addEventListener('click', newProjectButtonHandler);
+    }
+
+    const projectContainer = document.getElementById('project-container');
+    projectContainer.addEventListener('click', (event) => openProject(event));
+
+    //#regionCreateNewProject
+    function createNewProject(name) {
+        const newProject = projects.addProject(name);
+        const newDiv = document.createElement('button');
+        newDiv.classList.add('project-card');
+        newDiv.dataset.projectId = newProject.id;
+        newDiv.innerText = newProject.name;
+        projectContainer.appendChild(newDiv);
+    }
+
+    const newProjectButton = document.getElementById('new-project-button');
+    newProjectButton.addEventListener('click', () => {
+        const newFormDialog = document.getElementById('new-project-dialog');
+        newFormDialog.showModal();
+    });
+
+    const submitNewProjectButton = document.getElementById('submit-new-project');
     submitNewProjectButton.addEventListener('click', (event) => {
                         event.preventDefault();
                         const newProjectInput = document.getElementById('new-project-name-field');
@@ -39,49 +41,18 @@ function controller(){
                         const newName = newProjectInput.value;
                         newProjectInput.value = '';
                         createNewProject(newName);
+                        const newFormDialog = document.getElementById('new-project-dialog');
                         newFormDialog.close();
     });
-
+    const closeNewProjectButton = document.getElementById('close-new-project-dialog');
     closeNewProjectButton.addEventListener('click', (event) => {
                         event.preventDefault();
+                        const newFormDialog = document.getElementById('new-project-dialog');
                         newFormDialog.close();
     });
+//#endregionCreateNewProject
 
-    submitRenameProjectButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        if (!renameProjectInput.value) {
-            return;
-        }
-        const newName = renameProjectInput.value;
-        renameProjectInput.value = '';
-        editProjectName(submitRenameProjectButton.dataset.projectId, newName);
-        renameProjectDialog.close();
-});
-
-    closeRenameProjectButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        renameProjectDialog.close();
-});
-
-    function deleteProject(projectId) {
-        projects.deleteProject(Number(projectId));
-        currentProject.innerHTML = '';
-        const projectCard = projectContainer.querySelector(`[data-project-id="${projectId}"]`);
-        projectCard.remove();
-        newTodoButtonContainer.innerHTML = '';
-    }
-
-    submitDeleteProjectButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        deleteProject(submitDeleteProjectButton.dataset.projectId);
-        deleteProjectDialog.close();
-    });
-
-    closeDeleteButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        deleteProjectDialog.close();
-    });
-
+    //#regionProjectButtons
     function editProjectName(projectId, newName) {
         const project = projects.getProjectById(Number(projectId));
         project.name = newName;
@@ -90,6 +61,61 @@ function controller(){
         projectCard.innerText = newName;
     }
 
+    const submitRenameProjectButton = document.getElementById('submit-rename-project');
+    submitRenameProjectButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        const renameProjectInput = document.getElementById('rename-project-name-field');
+        if (!renameProjectInput.value) {
+            return;
+        }
+        const newName = renameProjectInput.value;
+        renameProjectInput.value = '';
+        editProjectName(submitRenameProjectButton.dataset.projectId, newName);
+
+        const renameProjectDialog = document.getElementById('rename-project-dialog');
+        renameProjectDialog.close();
+    });
+
+    const closeRenameProjectButton = document.getElementById('close-rename-project-dialog');
+    closeRenameProjectButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const renameProjectDialog = document.getElementById('rename-project-dialog');
+        renameProjectDialog.close();
+    });
+
+    function deleteProject(projectId) {
+        projects.deleteProject(Number(projectId));
+        const currentProjectContainer = document.getElementById('current-project');
+        currentProjectContainer.innerHTML = '';
+        const projectCard = projectContainer.querySelector(`[data-project-id="${projectId}"]`);
+        projectCard.remove();
+
+        const newTodoButtonContainer = document.getElementById('new-todo-button-container');
+        newTodoButtonContainer.innerHTML = '';
+    }
+
+    const submitDeleteProjectButton = document.getElementById('submit-delete-project');
+    submitDeleteProjectButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        deleteProject(submitDeleteProjectButton.dataset.projectId);
+
+        const deleteProjectDialog = document.getElementById('delete-project-dialog');
+        deleteProjectDialog.close();
+    });
+
+    const closeDeleteButton = document.getElementById('close-delete-project-dialog');
+    closeDeleteButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const deleteProjectDialog = document.getElementById('delete-project-dialog');
+        deleteProjectDialog.close();
+    });
+
+    //#endregionProjectButtons
+
+    //#regionNewTodo
+    const submitNewTodoButton = document.getElementById('submit-new-todo');
     submitNewTodoButton.addEventListener('click', (event) => {
 
         const newTodoTitle = document.getElementById('new-todo-title-field').value;
@@ -107,14 +133,23 @@ function controller(){
         const newTodo = project.addNewTodo(newTodoTitle, newTodoDescription, newTodoDate, newTodoPriority, newTodoDone);
         
         createNewTodo(projectId, newTodo);
+
+        const newTodoDialog = document.getElementById('new-todo-dialog');
         newTodoDialog.close();
     });
 
+    const closeNewTodoButton = document.getElementById('close-new-todo-dialog');
     closeNewTodoButton.addEventListener('click', (event) => {
             event.preventDefault();
+
+            const newTodoDialog = document.getElementById('new-todo-dialog');
             newTodoDialog.close();
     });
 
+    //#endregionNewTodo
+
+    //#regionEditTodoTitle
+    const submitEditTodoTitleButton = document.getElementById('submit-title-edit');
     submitEditTodoTitleButton.addEventListener('click', (event) => {
 
         const newTodoTitle = document.getElementById('edit-todo-title-field').value;
@@ -137,12 +172,17 @@ function controller(){
         editDialog.close();
     });
 
+    const closeEditTodoTitleButton = document.getElementById('close-title-edit-dialog');
     closeEditTodoTitleButton.addEventListener('click', (event) => {
             event.preventDefault();
             const editDialog = document.getElementById('edit-todo-title-dialog');
             editDialog.close();
     });
 
+    //#endregionEditTodoTitle
+
+    //#regionEditTodoDate
+    const submitEditTodoDateButton = document.getElementById('submit-date-edit');
     submitEditTodoDateButton.addEventListener('click', (event) => {
 
         const newTodoDate = document.getElementById('edit-todo-date-field').value;
@@ -165,12 +205,17 @@ function controller(){
         editDialog.close();
     });
 
+    const closeEditTodoDateButton = document.getElementById('close-date-edit-dialog');
     closeEditTodoDateButton.addEventListener('click', (event) => {
             event.preventDefault();
             const editDialog = document.getElementById('edit-todo-date-dialog');
             editDialog.close();
     });
 
+    //#endregionEditTodoDate
+
+    //#regionEditTodoDesc
+    const submitEditTodoDescButton = document.getElementById('submit-desc-edit');
     submitEditTodoDescButton.addEventListener('click', (event) => {
 
         const newTodoDesc = document.getElementById('edit-todo-description-field').value;
@@ -193,17 +238,28 @@ function controller(){
         editDialog.close();
     });
 
+    const closeEditTodoDescButton = document.getElementById('close-desc-edit-dialog');
     closeEditTodoDescButton.addEventListener('click', (event) => {
             event.preventDefault();
             const editDialog = document.getElementById('edit-todo-desc-dialog');
             editDialog.close();
     });
+    //#endregionEditTodoDesc
 
     const projects = userProjects();
 
+    //#regionRenderCurrentProject
+    function newTodoHandler(event) {
+        const projectId = event.target.dataset.projectId;
+        submitNewTodoButton.dataset.projectId = projectId;
+
+        const newTodoDialog = document.getElementById('new-todo-dialog');
+        newTodoDialog.showModal();
+    }
 
     function renderCurrentProject(projectId) {
-        currentProject.innerHTML = '';
+        const currentProjectContainer = document.getElementById('current-project');
+        currentProjectContainer.innerHTML = '';
         const project = projects.getProjectById(Number(projectId));
         const projectName = document.createElement('div');
         projectName.innerText = project.name;
@@ -216,6 +272,8 @@ function controller(){
 
         editProjectButton.addEventListener('click', (event) => {
             submitRenameProjectButton.dataset.projectId = projectId;
+
+            const renameProjectDialog = document.getElementById('rename-project-dialog');
             renameProjectDialog.showModal();
 
         })
@@ -227,6 +285,8 @@ function controller(){
 
         deleteProjectButton.addEventListener('click', (event) => {
             submitDeleteProjectButton.dataset.projectId = projectId;
+
+            const deleteProjectDialog = document.getElementById('delete-project-dialog');
             deleteProjectDialog.showModal();
         })
 
@@ -235,17 +295,21 @@ function controller(){
         currentProjectButtons.classList.add('current-project-buttons')
         currentProjectButtons.appendChild(editProjectButton);
         currentProjectButtons.appendChild(deleteProjectButton);
-        currentProject.appendChild(projectName);
-        currentProject.append(currentProjectButtons);
+
+        currentProjectContainer.appendChild(projectName);
+        currentProjectContainer.append(currentProjectButtons);
 
         const newTodoButton = document.createElement('button');
         newTodoButton.classList.add('new-todo-button');
         newTodoButton.innerText = '+';
         newTodoButton.dataset.projectId = projectId;
         newTodoButton.addEventListener('click', (event) => {newTodoHandler(event)});
+
+        const newTodoButtonContainer = document.getElementById('new-todo-button-container');
         newTodoButtonContainer.innerHTML = '';
         newTodoButtonContainer.appendChild(newTodoButton);
 
+        const projectTodos = document.getElementById('project-todos');
         projectTodos.innerHTML = '';
         project.todosList.forEach((todo) => {
             if (todo) {
@@ -256,14 +320,7 @@ function controller(){
 
     }
 
-    function openProject(event) {
-        const target = event.target;
-        if (target.classList.contains('project-card')) {
-            const projectId = target.dataset.projectId;
-            renderCurrentProject(projectId);
-        }
-
-    }
+    //#endregionRenderCurrentProject
 
     function openTitleEdit(card) {
         const submitButton = document.getElementById('submit-title-edit');
@@ -458,32 +515,19 @@ function controller(){
             todoCard.classList.add('done');
         }
 
+        const projectTodos = document.getElementById('project-todos');
         projectTodos.appendChild(todoCard);
 
 
     }
 
-    projectContainer.addEventListener('click', (event) => openProject(event));
 
 
-    function createNewProject(name) {
-        const newProject = projects.addProject(name);
-        const newDiv = document.createElement('button');
-        newDiv.classList.add('project-card');
-        newDiv.dataset.projectId = newProject.id;
-        newDiv.innerText = newProject.name;
-        projectContainer.appendChild(newDiv);
-    }
 
-    function newProjectButtonHandler() {
-        newFormDialog.showModal();
-    }
 
-    function newTodoHandler(event) {
-        const projectId = event.target.dataset.projectId;
-        submitNewTodoButton.dataset.projectId = projectId;
-        newTodoDialog.showModal();
-    }
+
+
+
 
     createNewProject('Default');
 
