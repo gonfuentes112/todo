@@ -92,7 +92,7 @@ function controller(){
         }
         event.preventDefault();
         const newTodoDescription = document.getElementById('new-todo-description-field').value;
-        const newTodoDate = document.getElementById('new-todo-date-field').value;
+        const newTodoDate = "Due date: " + document.getElementById('new-todo-date-field').value;
         const newTodoPriority = document.getElementById('new-todo-priority').value;
         const newTodoDone = document.getElementById('new-todo-done').checked;
 
